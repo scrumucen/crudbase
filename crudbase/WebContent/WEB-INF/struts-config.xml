@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources>
+	</data-sources>
+	<form-beans>
+		<form-bean name="BuscaEliminaUserForm"
+			type="com.scrumucen.crudbase.struts.form.BuscaEliminaUserForm"></form-bean>
+	</form-beans>
+
+	<global-forwards>
+		<forward name="BuscaEliminaUserDo" path="/BuscaEliminaUser.do"
+			redirect="true" />
+	</global-forwards>
+	<action-mappings>
+		<action path="/BuscaEliminaUser" name="BuscaEliminaUserForm"
+			type="com.scrumucen.crudbase.struts.action.BuscaEliminaUserAction"
+			scope="request" parameter="do">
+			<forward name="success" path="/BuscaEliminaUser.jsp" />
+		</action>
+	</action-mappings>
+	<controller>
+	</controller>
+	<message-resources parameter="resources.application" null="true"/>
+</struts-config>

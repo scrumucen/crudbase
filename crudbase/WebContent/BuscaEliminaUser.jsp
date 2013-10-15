@@ -8,6 +8,11 @@
 <html>
 <head>
 <script type="text/javascript">
+
+	function fncBuscarUser() {
+		document.BuscaEliminaUserForm.action = "/CrudBase/BuscaEliminaUser.do";
+		document.BuscaEliminaUserForm.submit();
+	}
 	function fncEliminarUser() {
 		if (confirm('Está seguro que desea eliminar?')) {
 			document.BuscaEliminaUserForm.action = "/CrudBase/BuscaEliminaUser.do?do=eliminar";
@@ -15,13 +20,19 @@
 		}
 	}
 
-	function fncBuscarUser() {
-		document.BuscaEliminaUserForm.action = "/CrudBase/BuscaEliminaUser.do";
+	function fncSelectUser(id) {
+		document.getElementById('selectedUser').value = id;
+	}
+
+	function fncCreaUser() {
+		document.BuscaEliminaUserForm.action = "/CrudBase/CreaModificaUser.do?operacion=CREAR";
 		document.BuscaEliminaUserForm.submit();
 	}
 
-	function fncSelectUser(id) {
-		document.getElementById('selectedUser').value = id;
+	function fncModificaUser() {
+		document.BuscaEliminaUserForm.action = "/CrudBase/CreaModificaUser.do?operacion=MODIFICAR&id=" + 
+												document.getElementById('selectedUser').value;
+		document.BuscaEliminaUserForm.submit();
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -39,13 +50,9 @@
 				Password:
 				<html:text name="BuscaEliminaUserForm" property="password"></html:text>
 				<html:submit onclick="javascript: fncBuscarUser(); return false;"
-					styleId="btnBuscar" property="botonFormulario" tabindex="23">
-				Buscar
-			</html:submit>
-				<html:submit onclick="javascript: fncBuscarUser(); return false;"
-					styleId="btnCrear" property="botonFormulario" tabindex="23">
-				Crear
-			</html:submit>
+					styleId="btnBuscar" property="botonFormulario" tabindex="23" value="Buscar"/>
+				<html:submit onclick="javascript: fncCreaUser(); return false;"
+					styleId="btnCrear" property="botonFormulario" tabindex="23" value="Crear nuevo"/>
 			</fieldset>
 		</div>
 		<div>
@@ -60,13 +67,6 @@
 								<td>Password</td>
 							</tr>
 						</thead>
-						<!-- 				<tfoot> -->
-						<!-- 					<tr> -->
-						<!-- 						<td>Id</td> -->
-						<!-- 						<td>Username</td> -->
-						<!-- 						<td>Password</td> -->
-						<!-- 					</tr> -->
-						<!-- 				</tfoot> -->
 						<logic:iterate id="registro" name="BuscaEliminaUserForm"
 							property="userList" type="com.scrumucen.crudbase.dto.User">
 							<tr>
@@ -81,9 +81,9 @@
 						</logic:iterate>
 					</table>
 					<html:submit onclick="javascript: fncEliminarUser(); return false;"
-						styleId="btnEliminar" property="botonFormulario" tabindex="23">
-			Eliminar
-		</html:submit>
+						styleId="btnEliminar" property="botonFormulario" tabindex="23" value="Eliminar"/>
+					<html:submit onclick="javascript: fncModificarUser(); return false;"
+						styleId="btnModificar" property="botonFormulario" tabindex="23" value="Modificar"/>
 				</fieldset>
 			</logic:notEmpty>
 		</div>

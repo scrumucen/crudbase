@@ -10,17 +10,23 @@
 	<form-beans>
 		<form-bean name="BuscaEliminaUserForm"
 			type="com.scrumucen.crudbase.struts.form.BuscaEliminaUserForm"></form-bean>
+		<form-bean name="CreaModificaUserForm"
+			type="com.scrumucen.crudbase.struts.form.CreaModificaUserForm"></form-bean>
 	</form-beans>
-
 	<global-forwards>
-		<forward name="BuscaEliminaUserDo" path="/BuscaEliminaUser.do"
-			redirect="true" />
+		<forward name="BuscaEliminaUserDo" path="/BuscaEliminaUser.do" redirect="true" />
+		<forward name="CreaModificaUserDo" path="/CreaModificaUser.do" redirect="true" />
 	</global-forwards>
 	<action-mappings>
 		<action path="/BuscaEliminaUser" name="BuscaEliminaUserForm"
 			type="com.scrumucen.crudbase.struts.action.BuscaEliminaUserAction"
 			scope="request" parameter="do">
 			<forward name="success" path="/BuscaEliminaUser.jsp" />
+		</action>
+		<action path="/CreaModificaUser" name="CreaModificaUserForm"
+			type="com.scrumucen.crudbase.struts.action.CreaModificaUserAction"
+			scope="request" parameter="do">
+			<forward name="success" path="/CreaModificaUser.jsp" />
 		</action>
 	</action-mappings>
 	<controller>

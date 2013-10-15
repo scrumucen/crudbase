@@ -13,14 +13,18 @@ import com.scrumucen.crudbase.dto.User;
 public class UserDAO {
 	private static final Log LOG = LogFactory.getLog(UserDAO.class);
 	private static List<User> instance;
-	public static List<User> buscaUsers(User filtros) throws SQLException {
-		ArrayList<User> retorno = new ArrayList<User>();
-		LOG.info("DAO buscaUsers");
+	private static List<User> getInstance() {
 		if (instance == null) {
 			instance = obtenerUsuarios();
 		}
+		return instance;
+	}
+	public static List<User> buscaUsers(User filtros) throws SQLException {
+		ArrayList<User> retorno = new ArrayList<User>();
+		LOG.info("DAO buscaUsers");
+		getInstance();
 		LOG.info(filtros);
-		for(Iterator<User> iter = instance.iterator();iter.hasNext();){
+		for(Iterator<User> iter = getInstance().iterator();iter.hasNext();){
 			User actual = iter.next();
 			if (!((filtros.getId() != null && !actual.getId().equals(filtros.getId())) ||
 					(filtros.getUsername() != null && filtros.getUsername() != "" && !actual.getUsername().toLowerCase().contains(filtros.getUsername().toLowerCase()))  ||
@@ -35,7 +39,9 @@ public class UserDAO {
 
 	public static boolean eliminaUsers(User user) {
 		LOG.info("DAO eliminaUsers");
-		for(Iterator<User> iter = instance.iterator();iter.hasNext();){
+		
+		//simula un "delete users where id = ?" 
+		for(Iterator<User> iter = getInstance().iterator();iter.hasNext();){
 			User actual = iter.next();
 			LOG.info(actual.getId() + " " + user.getId());
 			if (actual.getId().equals(user.getId())) {
@@ -55,5 +61,45 @@ public class UserDAO {
 			retorno.add(actual);
 		}
 		return retorno;
+	}
+
+	public static User creaUser(User user) {
+		LOG.info("DAO creaUsers");
+		
+		//simula un "insert into users values (?,?,?)"
+		user.setId(getNextId());
+		getInstance().add(user);
+		
+		return user;
+	}
+
+	public static User modificaUser(User user) {
+		LOG.info("DAO modificaUsers");
+
+		//simula un "update users set username=?,password=? where id=?"
+		for(Iterator<User> iter = getInstance().iterator();iter.hasNext();){
+			User actual = iter.next();
+			LOG.info(actual.getId() + " " + user.getId());
+			if (actual.getId().equals(user.getId())) {
+				actual.setUsername(user.getUsername());
+				actual.setPassword(user.getPassword());
+			}
+		}
+		return user;
+	}
+	
+	/**
+	 * Simula una secuencia de BD.
+	 * @return id siguiente de la secuencia.
+	 */
+	private static Long getNextId(){
+		Long maxId = 0L;
+		for(Iterator<User> iter = getInstance().iterator();iter.hasNext();){
+			User actual = iter.next();
+			if (actual.getId() > maxId) {
+				maxId = actual.getId();
+			}
+		}
+		return ++maxId;
 	}
 }

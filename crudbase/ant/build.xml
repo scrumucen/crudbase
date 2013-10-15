@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Packaging Generator" default="_packaging_generation_">
-	<property name="build.dir" value="D:/Proyectos/jboss-eap-6.1/standalone/deployments"/>
+	<property name="build.dir" value="/Users/ulayera/scrumucen/jboss-eap-6.1/standalone/deployments"/>
 	<target name="_packaging_generation_" depends="N65540" />
 	<target name="N65540" description="CrudBase.war">
 		<delete dir="${build.dir}/CrudBase.war/"/>
+		<delete file="${build.dir}/CrudBase.war.deployed"/>
 		<jar destfile="${build.dir}/CrudBase.war">
 			<zipfileset dir="../WebContent" />
 		</jar>

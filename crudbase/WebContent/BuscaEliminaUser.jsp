@@ -113,7 +113,7 @@
 							</tr>
 						</logic:iterate>
 					</table>
-					<html:submit styleClass="btn btn-small" onclick="javascript: fncEliminarUser(); return false;"
+					<html:submit onclick="javascript: fncEliminarUser(); return false;"
 						styleId="btnEliminar" property="botonFormulario" tabindex="23" value="Eliminar"/>
 					<html:submit onclick="javascript: fncModificarUser(); return false;"
 						styleId="btnModificar" property="botonFormulario" tabindex="23" value="Modificar"/>

@@ -7,8 +7,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript">
 
+<!-- Eliminar, estilos de ejemplo -->
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="jquery-datatables/css/demo_page.css" rel="stylesheet">
+<link href="jquery-datatables/css/demo_table.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="jquery-datatables/js/jquery.dataTables.js"></script>
+<!-- Eliminar, estilos de ejemplo -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#tablaInformacion').dataTable();
+	});
 	function fncBuscarUser() {
 		document.BuscaEliminaUserForm.action = "/CrudBase/BuscaEliminaUser.do";
 		document.BuscaEliminaUserForm.submit();
@@ -43,12 +56,32 @@
 		<div>
 			<fieldset>
 				<legend>Buscar</legend>
-				Id:
-				<html:text name="BuscaEliminaUserForm" property="id"></html:text>
-				Username:
-				<html:text name="BuscaEliminaUserForm" property="username"></html:text>
-				Password:
-				<html:text name="BuscaEliminaUserForm" property="password"></html:text>
+				<table>
+					<tr>
+						<td>
+							Id:
+						</td>
+						<td>
+							<html:text name="BuscaEliminaUserForm" property="id"></html:text>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Username:
+						</td>
+						<td>
+							<html:text name="BuscaEliminaUserForm" property="username"></html:text>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Password:
+						</td>
+						<td>
+							<html:text name="BuscaEliminaUserForm" property="password"></html:text>
+						</td>
+					</tr>
+				</table>
 				<html:submit onclick="javascript: fncBuscarUser(); return false;"
 					styleId="btnBuscar" property="botonFormulario" tabindex="23" value="Buscar"/>
 				<html:submit onclick="javascript: fncCreaUser(); return false;"
@@ -59,7 +92,7 @@
 			<logic:notEmpty name="BuscaEliminaUserForm" property="userList">
 				<fieldset>
 					<legend>Resultados</legend>
-					<table border="1" id="tablaInformacion">
+					<table id="tablaInformacion">
 						<thead>
 							<tr>
 								<td>Id</td>
@@ -80,7 +113,7 @@
 							</tr>
 						</logic:iterate>
 					</table>
-					<html:submit onclick="javascript: fncEliminarUser(); return false;"
+					<html:submit styleClass="btn btn-small" onclick="javascript: fncEliminarUser(); return false;"
 						styleId="btnEliminar" property="botonFormulario" tabindex="23" value="Eliminar"/>
 					<html:submit onclick="javascript: fncModificarUser(); return false;"
 						styleId="btnModificar" property="botonFormulario" tabindex="23" value="Modificar"/>
